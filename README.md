@@ -11,9 +11,6 @@ You can read about reasoning behind it at [Finely Distributed](https://finelydis
 
 ## Setup
 
-docker-it-scala works with Spotify's docker-client to communicate to docker engine through *REST API* or *unix socket*.
-- [Spotify's docker-client](https://github.com/spotify/docker-client) (used in Whisk)
-
 ```scala
 libraryDependencies ++= Seq(
   "com.whisk" %% "docker-testkit-scalatest" % "0.11.0" % "test"

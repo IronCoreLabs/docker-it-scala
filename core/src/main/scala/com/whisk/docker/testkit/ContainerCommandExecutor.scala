@@ -3,12 +3,12 @@ package com.whisk.docker.testkit
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
-import com.google.common.io.Closeables
-import com.spotify.docker.client.DockerClient.{AttachParameter, RemoveContainerParam}
-import com.spotify.docker.client.messages._
-import com.spotify.docker.client.{DockerClient, LogMessage, LogStream}
+import org.mandas.docker.client.DockerClient.{AttachParameter, RemoveContainerParam}
+import org.mandas.docker.client.messages._
+import org.mandas.docker.client.{DockerClient, LogMessage, LogStream}
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
+import scala.util.Try
 
 class StartFailedException(msg: String) extends Exception(msg)
 
@@ -90,7 +90,7 @@ class ContainerCommandExecutor(val client: DockerClient) {
             val str = StandardCharsets.US_ASCII.decode(t.content()).toString
             if (f(str)) {
               p.trySuccess(())
-              Closeables.close(stream, true)
+              Try(client.close())
             }
           }
         })
@@ -113,7 +113,6 @@ class ContainerCommandExecutor(val client: DockerClient) {
     )
   }
 
-  def close(): Unit = {
-    Closeables.close(client, true)
-  }
+  def close(): Unit = Try(client.close())
+
 }

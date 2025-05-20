@@ -2,8 +2,8 @@ package com.whisk.docker.testkit
 
 import java.util.concurrent.{ConcurrentHashMap, TimeUnit}
 
-import com.spotify.docker.client.exceptions.ImageNotFoundException
-import com.spotify.docker.client.messages.ContainerCreation
+import org.mandas.docker.client.exceptions.ImageNotFoundException
+import org.mandas.docker.client.messages.ContainerCreation
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.{Await, ExecutionContext, Future}

@@ -2,7 +2,7 @@ package com.whisk.docker.testkit
 
 import java.util.concurrent.atomic.AtomicReference
 
-import com.spotify.docker.client.messages.ContainerInfo
+import org.mandas.docker.client.messages.ContainerInfo
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._

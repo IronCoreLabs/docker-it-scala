@@ -2,8 +2,8 @@ package com.whisk.docker.testkit
 
 import java.util.Collections
 
-import com.spotify.docker.client.messages.{ContainerConfig, HostConfig, PortBinding}
-import com.spotify.docker.client.messages.HostConfig.Bind
+import org.mandas.docker.client.messages.{ContainerConfig, HostConfig, PortBinding}
+import org.mandas.docker.client.messages.HostConfig.Bind
 
 import scala.collection.JavaConverters._
 

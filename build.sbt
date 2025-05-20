@@ -1,8 +1,8 @@
 lazy val commonSettings = Seq(
   organization := "com.whisk",
-  version := "0.12.0",
-  scalaVersion := "2.13.6",
-  crossScalaVersions := Seq("2.13.6", "2.12.15", "2.11.12", "3.0.2"),
+  version := "0.13.0-PRE",
+  scalaVersion := "2.13.16",
+  crossScalaVersions := Seq("2.13.16", "2.12.15", "2.11.12", "3.0.2"),
   scalacOptions ++= Seq("-feature", "-deprecation"),
   Test / fork := true,
   licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
@@ -45,7 +45,7 @@ lazy val core =
       name := "docker-testkit-core",
       libraryDependencies ++= Seq(
         "org.slf4j" % "slf4j-api" % "1.7.25",
-        "com.spotify" % "docker-client" % "8.16.0",
+        "org.mandas" % "docker-client" % "9.0.3",
         "com.google.code.findbugs" % "jsr305" % "3.0.1"
       )
     )
@@ -89,7 +89,7 @@ lazy val coreShaded =
       name := "docker-testkit-core-shaded",
       libraryDependencies ++=
         Seq(
-          "com.spotify" % "docker-client" % "8.16.0" classifier "shaded",
+          "org.mandas" % "docker-client" % "9.0.3",
           "com.google.code.findbugs" % "jsr305" % "3.0.1"
         ),
       target := baseDirectory.value / "target-shaded"

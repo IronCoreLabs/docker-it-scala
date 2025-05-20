@@ -2,16 +2,17 @@ package com.whisk.docker.testkit.scalatest
 
 import java.util.concurrent.ForkJoinPool
 
-import com.spotify.docker.client.{DefaultDockerClient, DockerClient}
+import org.mandas.docker.client.{DockerClient}
 import com.whisk.docker.testkit._
 import org.scalatest.{Args, Status, Suite, SuiteMixin}
 
 import scala.concurrent.ExecutionContext
 import scala.language.implicitConversions
+import org.mandas.docker.client.builder.DockerClientBuilder
 
 trait DockerTestKitForAll extends SuiteMixin { self: Suite =>
 
-  val dockerClient: DockerClient = DefaultDockerClient.fromEnv().build()
+  val dockerClient: DockerClient = DockerClientBuilder.fromEnv().build();
 
   val dockerExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(new ForkJoinPool())
 

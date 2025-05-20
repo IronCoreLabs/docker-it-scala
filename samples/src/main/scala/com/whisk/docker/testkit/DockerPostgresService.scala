@@ -1,6 +1,6 @@
 package com.whisk.docker.testkit
 
-import com.spotify.docker.client.messages.PortBinding
+import org.mandas.docker.client.messages.PortBinding
 import com.whisk.docker.testkit.scalatest.DockerTestKitForAll
 import org.scalatest.Suite
 
