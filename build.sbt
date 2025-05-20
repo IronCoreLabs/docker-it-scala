@@ -2,7 +2,7 @@ lazy val commonSettings = Seq(
   organization := "com.whisk",
   version := "0.13.0",
   scalaVersion := "2.13.16",
-  crossScalaVersions := Seq("2.13.16", "2.12.20", "3.0.2"),
+  crossScalaVersions := Seq("2.13.16", "2.12.20", "3.7.0"),
   scalacOptions ++= Seq("-feature", "-deprecation"),
   Test / fork := true,
   licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
@@ -43,11 +43,19 @@ lazy val core =
     .settings(commonSettings: _*)
     .settings(
       name := "docker-testkit-core",
-      libraryDependencies ++= Seq(
-        "org.slf4j" % "slf4j-api" % "1.7.25",
-        "org.mandas" % "docker-client" % "9.0.3",
-        "com.google.code.findbugs" % "jsr305" % "3.0.1"
-      )
+      libraryDependencies ++= {
+        val base = Seq(
+          "org.slf4j" % "slf4j-api" % "1.7.25",
+          "org.mandas" % "docker-client" % "9.0.3",
+          "com.google.code.findbugs" % "jsr305" % "3.0.1"
+        )
+        CrossVersion.partialVersion(scalaVersion.value) match {
+          case Some((3, _)) =>
+            base :+ ("org.immutables" % "value" % "2.9.3" % Provided)
+          case _ =>
+            base
+        }
+      }
     )
 
 lazy val scalatest =
@@ -87,10 +95,17 @@ lazy val coreShaded =
     .settings(commonSettings: _*)
     .settings(
       name := "docker-testkit-core-shaded",
-      libraryDependencies ++=
-        Seq(
+      libraryDependencies ++= {
+        val base = Seq(
           "org.mandas" % "docker-client" % "9.0.3",
           "com.google.code.findbugs" % "jsr305" % "3.0.1"
-        ),
+        )
+        CrossVersion.partialVersion(scalaVersion.value) match {
+          case Some((3, _)) =>
+            base :+ ("org.immutables" % "value" % "2.9.3" % Provided)
+          case _ =>
+            base
+        }
+      },
       target := baseDirectory.value / "target-shaded"
     )

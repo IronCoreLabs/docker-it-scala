@@ -3,7 +3,7 @@ package com.whisk.docker.testkit
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
-import org.mandas.docker.client.DockerClient.{AttachParameter, RemoveContainerParam}
+import org.mandas.docker.client.DockerClient.RemoveContainerParam
 import org.mandas.docker.client.messages._
 import org.mandas.docker.client.{DockerClient, LogMessage, LogStream}
 
@@ -57,8 +57,14 @@ class ContainerCommandExecutor(val client: DockerClient) {
   private def logStreamFuture(id: String, withErr: Boolean)(implicit
       ec: ExecutionContext
   ): Future[LogStream] = {
-    val baseParams = List(AttachParameter.STDOUT, AttachParameter.STREAM, AttachParameter.LOGS)
-    val logParams = if (withErr) AttachParameter.STDERR :: baseParams else baseParams
+    val baseParams = List(
+      DockerClient.AttachParameter.STDOUT,
+      DockerClient.AttachParameter.STREAM,
+      DockerClient.AttachParameter.LOGS
+    )
+    val logParams =
+      if (withErr) DockerClient.AttachParameter.STDERR :: baseParams
+      else baseParams
     Future(scala.concurrent.blocking(client.attachContainer(id, logParams: _*)))
   }
 
